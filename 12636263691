@@ -932,6 +932,7 @@ maxvalue = 120
                 val.Size = UDim2.new(0, 41, 0, 14)
                 val.Font = Enum.Font.GothamSemibold
                 val.Text = startVal
+                val.TextTransparency = 0
                 val.TextColor3 = themeList.TextColor
                 val.TextSize = 14.000
                 val.TextTransparency = 1.000
