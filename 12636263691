@@ -13,7 +13,7 @@ local user
 pfp = "https://www.roblox.com/headshot-thumbnail/image?userId=".. game.Players.LocalPlayer.UserId .."&width=420&height=420&format=png"
 
 user = game.Players.LocalPlayer.DisplayName
-
+ 
 local Utility = {}
 local Objects = {}
 function Kavo:DraggingEnabled(frame, parent)
@@ -144,6 +144,7 @@ local SettingsT = {
 _G.SettingSave = {
    Anonymous = false;
    HideText = false;
+   Fov = "70";
 }   
 
 
@@ -245,6 +246,8 @@ function Kavo.CreateLib(kavName, themeList)
     local ScreenGui = Instance.new("ScreenGui")
     local Main = Instance.new("Frame")
     local MainCorner = Instance.new("UICorner")
+    local DropShadowHolder = Instance.new("Frame")
+    local DropShadow = Instance.new("ImageLabel")
     local Background = Instance.new("ImageLabel")
     local BackgroundCorner = Instance.new("UICorner")
     local MainHeader = Instance.new("Frame")
@@ -252,6 +255,9 @@ function Kavo.CreateLib(kavName, themeList)
     local coverup = Instance.new("Frame")
     local UserImage = Instance.new("ImageLabel")
     local title = Instance.new("TextLabel")
+    local fact = Instance.new("TextButton")
+    local FactName = Instance.new("TextLabel")
+    local Factclose = Instance.new("TextButton")
     local UICorner = Instance.new("UICorner")
     local UICorners = Instance.new("UICorner") 
     local Time = Instance.new("TextLabel")    
@@ -301,6 +307,9 @@ function Kavo.CreateLib(kavName, themeList)
     MainCorner.CornerRadius = UDim.new(0, 4)
     MainCorner.Name = "MainCorner"
     MainCorner.Parent = Main
+
+    
+
 
     Background.Name = "Background"
     Background.Parent = Main
@@ -352,10 +361,21 @@ function Kavo.CreateLib(kavName, themeList)
     title.Size = UDim2.new(0, 204, 0, 8)
     title.Font = Enum.Font.Gotham
     title.RichText = true
-    title.Text = kavName
+    title.Text = "ROMHUB"
     title.TextColor3 = themeList.TextColor
     title.TextSize = 16.000   
-   
+    
+    fact.Name = "Fact"
+    fact.Parent = MainHeader
+    fact.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    fact.BackgroundTransparency = 1
+    fact.BorderSizePixel = 0
+    fact.Position = UDim2.new(0.405428565, 0, 0.615827592, 0)
+    fact.Size = UDim2.new(0, 64, 0, 9)
+    fact.Font = Enum.Font.Gotham
+    fact.RichText = true
+    fact.Text = ""
+    fact.TextColor3 = themeList.TextColor 
                
     Time.Name = "Time"
     Time.Parent = MainHeader
@@ -371,19 +391,11 @@ function Kavo.CreateLib(kavName, themeList)
     Time.TextSize = 13.000
        
     function UpdateTime()
-       if Time then
         local GameTime = math.floor(workspace.DistributedGameTime+0.5)
         local Hour = math.floor(GameTime/(60^2))%24
         local Minute = math.floor(GameTime/(60^1))%60
         local Second = math.floor(GameTime/(60^0))%60
         Time.Text = ("Timer "..Hour.." Hr : "..Minute.." Min : "..Second.." Sec")
-	
-
-	
-end
-	
-
-	
     end
        
 spawn(function()
@@ -394,6 +406,7 @@ spawn(function()
         end
     end)
   
+
     User.Name = "User"
     User.Parent = MainHeader
     User.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -427,17 +440,12 @@ spawn(function()
 
     time.Text = "N/A"   
 
-   spawn(function()
-	while time do wait()
-
-            time.Text = ""..os.date("%H")..":"..os.date("%M")..":"..os.date("%S")
-	
-    
-
-        end
-
- 
-	
+spawn(function()
+	while wait() do
+	time.Text = ""..os.date("%H")..":"..os.date("%M")..":"..os.date("%S")
+	end
+	end)
+   
     close.Name = "close"
     close.Parent = MainHeader
     close.BackgroundTransparency = 1.000
@@ -448,7 +456,11 @@ spawn(function()
     close.ImageRectOffset = Vector2.new(284, 4)
     close.ImageRectSize = Vector2.new(24, 24)
     close.MouseButton1Click:Connect(function()
-       game.TweenService:Create(close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+time = false
+Time = false
+FactName.TextTransparency = 1
+        
+        game.TweenService:Create(close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
             ImageTransparency = 1
         }):Play()
         wait()
@@ -472,12 +484,22 @@ spawn(function()
 local st = Setting         
 st.MouseButton1Click:Connect(function()
 if setting then
+game.TweenService:Create(
+Setting,
+TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+{Rotation = 0}
+):Play()
 Utility:TweenObject(SettingUI, {Position = UDim2.new(0.5, 0, 2, 0)}, 0.8)
                         Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
 getgenv().setting = false
 
 else
 getgenv().setting = true
+game.TweenService:Create(
+Setting,
+TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+{Rotation = 360}
+):Play()
                         Utility:TweenObject(SettingUI, {Position = UDim2.new(0.5, 0, 0.5, 0)}, 0.8)
                         Utility:TweenObject(blurFrame, {BackgroundTransparency = 0.5}, 0.2)                    
 end
@@ -508,17 +530,17 @@ Ping.Name = "Ping"
     Ping.TextSize = 13.000
     Ping.TextXAlignment = Enum.TextXAlignment.Left
 
-local script = Instance.new('LocalScript', Fps)
+
 local RunService = game:GetService("RunService")
 RunService.RenderStepped:Connect(function(frame)
-script.Parent.Text = ("FPS: "..math.round(1/frame)) 
+Fps.Text = ("FPS: "..math.round(1/frame)) 
 end)
 
 
-local script = Instance.new('LocalScript', Ping)
+
 local RunService = game:GetService("RunService")
 RunService.RenderStepped:Connect(function(ping) 
-script.Parent.Text = ("Ping: " ..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(math.round(2/ping))) -- your ping
+Ping.Text = ("Ping: " ..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(math.round(2/ping))) -- your ping
 end)
 
     MainSide.Name = "MainSide"
@@ -584,12 +606,71 @@ end)
     infoContainer.Position = UDim2.new(0.299047619, 0, 0.874213815, 0)
     infoContainer.Size = UDim2.new(0, 368, 0, 33)
 
+fact.MouseButton1Click:Connect(function()
+                    if Fact then
+Utility:TweenObject(FactName, {Position = UDim2.new(0.5,0,2,0)}, 0.8)
+                        Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.8)                        
+                        
+                        getgenv().Fact = false
+
+                         else
+                       getgenv().Fact = true
+                        Utility:TweenObject(FactName, {Position = UDim2.new(0.5, 0, 0.5, 0)}, 0.8)
+                        Utility:TweenObject(blurFrame, {BackgroundTransparency = 0.5}, 0.2)                    
+                                          
+    end
+                end)
+
+                FactName.Name = "FactName"
+                FactName.Parent = Main
+                FactName.BackgroundColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 14, themeList.SchemeColor.g * 255 - 17, themeList.SchemeColor.b * 255 - 13)
+                FactName.Position = UDim2.new(0.5,0,2,0)
+                FactName.Size = UDim2.new(0, 353, 0, 150)
+                FactName.ZIndex = 9
+                FactName.AnchorPoint = Vector2.new(0.5, 0.5)
+                FactName.Font = Enum.Font.GothamSemibold
+                FactName.Text = "So u just click our name and u know why our hub Name is ROMHUB?? It come from my username that start with rom. And i think it pretty iconic so i use them to this time! And the hub is from other script like to end with hub! That the end!"
+                FactName.RichText = true
+                FactName.TextWrapped = true
+                FactName.TextColor3 = themeList.TextColor
+                Objects[FactName] = "TextColor3"
+                FactName.TextSize = 14.000
+                FactName.TextXAlignment = Enum.TextXAlignment.Left
+                FactName.TextYAlignment = Enum.TextYAlignment.Top
+                Objects[FactName] = "BackgroundColor3"
+
+UICorner.CornerRadius = UDim.new(0, 4)
+                UICorner.Parent = FactName
+
+
+
+Factclose.Parent = FactName 
+Factclose.BackgroundColor3 = Color3.fromRGB(255,1,1)
+Factclose.BackgroundTransparency = 1
+Factclose.Position = UDim2.new(0.9, 0, 0.2552890813, 0)
+Factclose.Size = UDim2.new(0, 0, 0, 0)
+Factclose.Text = "CLOSE RN😡"
+Factclose.TextTransparency = 1
+Factclose.TextColor3 = Color3.fromRGB(255, 255, 255)
+Factclose.TextSize = 14.000
+
+UICorners.CornerRadius = UDim.new(0, 10) 
+
+UICorners.Parent = Factclose                
+    
+Factclose.MouseButton1Click:Connect(function()
+Utility:TweenObject(FactName, {Position = UDim2.new(0.5,0,2,0)}, 0.8)
+                        Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.8)                        
+                        wait(0)
+                        getgenv().Fact = false
+end)
+
 
                 SettingUI.Name = "SettingUI"
                 SettingUI.Parent = Main
                 SettingUI.BackgroundColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 14, themeList.SchemeColor.g * 255 - 17, themeList.SchemeColor.b * 255 - 13)
                 SettingUI.Position = UDim2.new(0.5,0,2,0)
-                SettingUI.Size = UDim2.new(0, 353, 0, 150)
+                SettingUI.Size = UDim2.new(0, 353, 0, 160)
                 SettingUI.ZIndex = 9
                 SettingUI.AnchorPoint = Vector2.new(0.5, 0.5)                
 
@@ -760,7 +841,194 @@ HidEnable.ImageTransparency = 0
 end
 end)
 
+
 loadsetting()
+
+maxvalue = 120
+                minvalue = 70
+                startVal = _G.SettingSave.Fov
+
+                local Speed = Instance.new("TextButton")
+                local UICorner = Instance.new("UICorner")
+                local SpeedName = Instance.new("TextLabel")              
+                local SpeedBtn = Instance.new("TextButton")
+                
+                local UIListLayout = Instance.new("UIListLayout")
+                local SpeedDrag = Instance.new("Frame")
+                local UICorner_3 = Instance.new("UICorner")
+                local write = Instance.new("ImageLabel")
+                local val = Instance.new("TextLabel")
+
+                Speed.Name = "Speed"
+                Speed.Parent = SettingUI
+                Speed.BackgroundColor3 = themeList.ElementColor
+                Speed.Position = UDim2.new(0,0,0.44,0)
+                Speed.ClipsDescendants = true
+                Speed.Size = UDim2.new(0, 352, 0, 33)
+                Speed.AutoButtonColor = false
+                Speed.Font = Enum.Font.SourceSans
+                Speed.Text = ""
+                Speed.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Speed.TextSize = 14.000
+
+                
+                SpeedName.Name = "SpeedName"
+                SpeedName.Parent = Speed
+                SpeedName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                SpeedName.BackgroundTransparency = 1.000
+                SpeedName.Position = UDim2.new(0.096704483, 0, 0.272727281, 0)
+                SpeedName.Size = UDim2.new(0, 138, 0, 14)
+                SpeedName.Font = Enum.Font.GothamSemibold
+                SpeedName.Text = "Fov"
+                SpeedName.RichText = true
+                SpeedName.TextColor3 = themeList.TextColor
+                SpeedName.TextSize = 14.000
+                SpeedName.TextXAlignment = Enum.TextXAlignment.Left
+
+               
+                SpeedBtn.Name = "SpeedBtn"
+                SpeedBtn.Parent = Speed
+                SpeedBtn.BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 5, themeList.ElementColor.g * 255 + 5, themeList.ElementColor.b * 255  + 5)
+                SpeedBtn.BorderSizePixel = 0
+                SpeedBtn.Position = UDim2.new(0.488749951, 0, 0.393939406, 0)
+                SpeedBtn.Size = UDim2.new(0, 149, 0, 6)
+                SpeedBtn.AutoButtonColor = false
+                SpeedBtn.Font = Enum.Font.SourceSans
+                SpeedBtn.Text = ""
+                SpeedBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+                SpeedBtn.TextSize = 14.000
+
+                
+                UIListLayout.Parent = SpeedBtn
+                UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+
+                SpeedDrag.Name = "SpeedDrag"
+                SpeedDrag.Parent = SpeedBtn
+                SpeedDrag.BackgroundColor3 = themeList.SchemeColor
+                SpeedDrag.BorderColor3 = Color3.fromRGB(74, 99, 135)
+                SpeedDrag.BorderSizePixel = 0
+                SpeedDrag.Size = UDim2.new(-0.671140969, 100,1,0)
+
+                UICorner_3.Parent = SpeedDrag
+
+                write.Name = "write"
+                write.Parent = Speed
+                write.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                write.BackgroundTransparency = 1.000
+                write.BorderColor3 = Color3.fromRGB(27, 42, 53)
+                write.Position = UDim2.new(0.0199999996, 0, 0.180000007, 0)
+                write.Size = UDim2.new(0, 21, 0, 21)
+                write.Image = "rbxassetid://3926307971"
+                write.ImageColor3 = themeList.SchemeColor
+                write.ImageRectOffset = Vector2.new(404, 164)
+                write.ImageRectSize = Vector2.new(36, 36)
+
+                val.Name = "val"
+                val.Parent = Speed
+                val.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                val.BackgroundTransparency = 1.000
+                val.Position = UDim2.new(0.352386296, 0, 0.272727281, 0)
+                val.Size = UDim2.new(0, 41, 0, 14)
+                val.Font = Enum.Font.GothamSemibold
+                val.Text = startVal
+                val.TextColor3 = themeList.TextColor
+                val.TextSize = 14.000
+                val.TextTransparency = 1.000
+                val.TextXAlignment = Enum.TextXAlignment.Right
+
+                           
+                                
+                local mouse = game:GetService("Players").LocalPlayer:GetMouse();
+
+                local ms = game.Players.LocalPlayer:GetMouse()
+                local uis = game:GetService("UserInputService")
+                local btn = Speed                
+                local hovering = false
+                btn.MouseEnter:Connect(function()
+                    if not focusing then
+                        game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                            BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 8, themeList.ElementColor.g * 255 + 9, themeList.ElementColor.b * 255 + 10)
+                        }):Play()
+                        hovering = true
+                    end 
+                end)
+                btn.MouseLeave:Connect(function()
+                    if not focusing then
+                        game.TweenService:Create(btn, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                            BackgroundColor3 = themeList.ElementColor
+                        }):Play()
+                        hovering = false
+                    end
+                end)        
+
+                coroutine.wrap(function()
+                    while wait() do
+                        if not hovering then
+                            Speed.BackgroundColor3 = themeList.ElementColor
+                        end
+                        val.TextColor3 = themeList.TextColor
+                        write.ImageColor3 = themeList.SchemeColor
+                        SpeedName.TextColor3 = themeList.TextColor                      
+                        SpeedBtn.BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 5, themeList.ElementColor.g * 255 + 5, themeList.ElementColor.b * 255  + 5)
+                        SpeedDrag.BackgroundColor3 = themeList.SchemeColor
+                    end
+                end)()
+
+                local Value
+                SpeedBtn.MouseButton1Down:Connect(function()
+                    if not focusing then
+                        game.TweenService:Create(val, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                            TextTransparency = 0
+                        }):Play()
+                        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 149) * SpeedDrag.AbsoluteSize.X) + tonumber(minvalue)) or 1
+                        pcall(function()
+                            _G.SettingSave.Fov = Value
+saveSettings()
+
+ game.Workspace.Camera.FieldOfView = Value
+                        end)
+                        SpeedDrag:TweenSize(UDim2.new(0, math.clamp(mouse.X - SpeedDrag.AbsolutePosition.X, 0, 149), 0, 6), "InOut", "Linear", 0.05, true)
+                        moveconnection = mouse.Move:Connect(function()
+                            val.Text = Value
+                            Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 149) * SpeedDrag.AbsoluteSize.X) + tonumber(minvalue))
+                            pcall(function()
+                                 _G.SettingSave.Fov = Value
+saveSettings()
+ game.Workspace.Camera.FieldOfView = Value
+                            end)
+                            SpeedDrag:TweenSize(UDim2.new(0, math.clamp(mouse.X - SpeedDrag.AbsolutePosition.X, 0, 149), 0, 6), "InOut", "Linear", 0.05, true)
+                        end)
+                        releaseconnection = uis.InputEnded:Connect(function(Mouse)
+                            if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or Mouse.UserInputType == Enum.UserInputType.Touch then
+                                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 149) * SpeedDrag.AbsoluteSize.X) + tonumber(minvalue))
+                                pcall(function()
+                           _G.SettingSave.Fov = Value
+saveSettings()
+ game.Workspace.Camera.FieldOfView = Value
+                                end)
+                                val.Text = Value
+                                game.TweenService:Create(val, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                                   
+                                 TextTransparency = 0
+                                }):Play()
+                                SpeedDrag:TweenSize(UDim2.new(0, math.clamp(mouse.X - SpeedDrag.AbsolutePosition.X, 0, 149), 0, 6), "InOut", "Linear", 0.05, true)
+                                moveconnection:Disconnect()
+                                releaseconnection:Disconnect()
+                            end
+                        end)
+                    else
+                        for i,v in next, infoContainer:GetChildren() do
+                            Utility:TweenObject(v, {Position = UDim2.new(0,0,2,0)}, 0.2)
+                            focusing = false
+                        end
+                        Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
+                    end
+                end)
+                
+
+
+game.Workspace.Camera.FieldOfView = _G.SettingSave.Fov
 
 if _G.SettingSave.Anonymous then
 getgenv().anonymous = true
@@ -788,15 +1056,30 @@ Time.TextTransparency = 0
 Fps.TextTransparency = 0
 Ping.TextTransparency = 0
 HidEnable.ImageTransparency = 1
-end
+end                     
+    
 
-if _G.SettingSave.Anonymous and _G.SettingSave.HideText then
-UserImage.ImageTransparency = 1
-User.TextTransparency = 1
+DropShadowHolder.Name = "DropShadowHolder"
+    DropShadowHolder.Parent = Main
+    DropShadowHolder.BackgroundTransparency = 1.000
+    DropShadowHolder.BorderSizePixel = 0
+    DropShadowHolder.Size = UDim2.new(1, 0, 1, 0)
+    DropShadowHolder.ZIndex = 0
 
-end
-                     
-                     
+    DropShadow.Name = "DropShadow"
+    DropShadow.Parent = DropShadowHolder
+    DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    DropShadow.BackgroundTransparency = 1.000
+    DropShadow.BorderSizePixel = 0
+    DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+    DropShadow.Size = UDim2.new(1, 800, 1, 800)
+    DropShadow.ZIndex = 0
+    DropShadow.Image = "rbxassetid://6015897843"
+    DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    DropShadow.ImageTransparency = 0.500
+    DropShadow.ScaleType = Enum.ScaleType.Slice
+    DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+                 
                      
     coroutine.wrap(function()
         while wait() do
@@ -3103,4 +3386,3 @@ end
     return Tabs
 end
 return Kavo
-
