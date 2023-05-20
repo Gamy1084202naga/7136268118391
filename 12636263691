@@ -11,7 +11,7 @@ local Image = Instance.new("ImageLabel")
 local Title = Instance.new("TextLabel")
 local Description = Instance.new("TextLabel")
 
-ScreenGui.Parent = game.CoreGui
+ScreenGui.Parent = GUI
 ScreenGui.Name = "ROMHUBNotification"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
