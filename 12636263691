@@ -6,8 +6,7 @@ local ROMHUBNofitication = {}
 function ROMHUBNofitication:Notify(Title, Description, Image)
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
-local Corner = Instance.new("UICorner") 
-local Image = Instance.new("ImageLabel")
+local Corner = Instance.new("UICorner")
 local Title = Instance.new("TextLabel")
 local Description = Instance.new("TextLabel")
 
@@ -29,20 +28,10 @@ Corner.CornerRadius = UDim.new(0, 8)
 
 Corner.Parent = Frame
 
-Image.Parent = Frame 
-Image.BackgroundColor3 = Color3.new(0,0,0)
-Image.BackgroundTransparency = 1
-Image.BorderSizePixel = 0 
-Image.Position = UDim2.new(0.15,0,0.5,0)
-Image.AnchorPoint = Vector2.new(0.5, 0.5)
-Image.Size = UDim2.new(0,55,0,55)
-Image.Image = "rbxassetid://0"
-Image.ImageTransparency = 0
-
 Title.Parent = Frame
 Title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Title.BackgroundTransparency = 1
-Title.Position = UDim2.new(0.275, 0, 0.2, 0)
+Title.Position = UDim2.new(0.1, 0, 0.2, 0)
 Title.Size = UDim2.new(0, 0, 0, 0)
 Title.Font = Enum.Font.GothamBold
 Title.Text = Title
@@ -54,7 +43,7 @@ Title.TextXAlignment = Enum.TextXAlignment.Left
 Description.Parent = Frame
 Description.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Description.BackgroundTransparency = 1
-Description.Position = UDim2.new(0.275, 0, 0.4, 0)
+Description.Position = UDim2.new(0.1, 0, 0.4, 0)
 Description.Size = UDim2.new(0, 0, 0, 0)
 Description.Font = Enum.Font.GothamBold
 Description.Text = Description
