@@ -3,7 +3,7 @@ local GUI = game:GetService("CoreGui"):FindFirstChild("ROMHUBNofitication")
 
 local ROMHUBNofitication = {}
 
-function ROMHUBNofitication:Notify(Title, Description, Image)
+function ROMHUBNofitication:Notify(Title, Description)
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local Corner = Instance.new("UICorner")
