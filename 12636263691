@@ -41,14 +41,14 @@ Description.BackgroundTransparency = 1
 Description.Position = UDim2.new(0.1, 0, 0.4, 0)
 Description.Size = UDim2.new(0, 0, 0, 0)
 Description.Font = Enum.Font.GothamBold
-Description.Text = "Pls wait!!"
-Description.TextWrapped = true
+Description.Text = middledebug.Description
 Description.TextColor3 = Color3.fromRGB(255, 255, 255)
 Description.TextTransparency = 0
+Description.TextWrapped = true
 Description.TextSize = 12.000
 Description.TextXAlignment = Enum.TextXAlignment.Left    
     
- wait(3)
+ wait(4)
 
     Frame:Destroy()
 
