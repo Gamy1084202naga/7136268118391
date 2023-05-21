@@ -46,7 +46,7 @@ Description.TextTransparency = 0
 Description.TextWrapped = true
 Description.TextSize = 12.000
 Description.TextXAlignment = Enum.TextXAlignment.Left
-Description.Text = notfdebug.Description  
+Description.Text = middledebug.Description  
     
  wait(4)
 
