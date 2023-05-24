@@ -5,7 +5,7 @@ local ROMHUBNofitication = {}
 
 local P = Description
 
-function ROMHUBNofitication:Notify(H, G)
+function ROMHUBNofitication:Notify(H, G, T)
 
 local Frame = Instance.new("Frame")
 local Corner = Instance.new("UICorner")
@@ -50,7 +50,7 @@ E.TextTransparency = 0
 E.TextSize = 12.000
 E.TextXAlignment = Enum.TextXAlignment.Left    
 
- wait(4)
+ wait(T.Time)
 
     Frame:Destroy()
 
