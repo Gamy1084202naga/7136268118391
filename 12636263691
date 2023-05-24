@@ -49,8 +49,6 @@ E.TextTransparency = 0
 E.TextSize = 13.000
 E.TextXAlignment = Enum.TextXAlignment.Left    
 
- wait(T)
-
 Time.Parent = Frame
 Time.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Time.BackgroundTransparency = 1
@@ -62,6 +60,8 @@ Time.TextColor3 = Color3.fromRGB(255, 255, 255)
 Time.TextTransparency = 0
 Time.TextSize = 16.000
 Time.TextXAlignment = Enum.TextXAlignment.Left    
+
+ wait(T)
 
     Frame:Destroy()
 
