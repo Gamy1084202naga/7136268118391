@@ -3,8 +3,6 @@ local GUI = game:GetService("CoreGui"):FindFirstChild("ROMHUBNofitication")
 
 local ROMHUBNofitication = {}
 
-local P = Description
-
 function ROMHUBNofitication:Notify(H, G, T)
 
 local Frame = Instance.new("Frame")
@@ -44,7 +42,7 @@ E.BackgroundTransparency = 1
 E.Position = UDim2.new(0.1, 0, 0.4, 0)
 E.Size = UDim2.new(0, 0, 0, 0)
 E.Font = Enum.Font.GothamBold
-E.Text = G.DownText
+E.Text = G.Text
 E.TextColor3 = Color3.fromRGB(255, 255, 255)
 E.TextTransparency = 0
 E.TextSize = 12.000
