@@ -9,6 +9,7 @@ local Frame = Instance.new("Frame")
 local Corner = Instance.new("UICorner")
 local A = Instance.new("TextLabel")
 local E = Instance.new("TextLabel")
+local Time = Instance.new("TextLabel")
 
 
 Frame.Parent = GUI
@@ -45,10 +46,22 @@ E.Font = Enum.Font.GothamBold
 E.Text = D
 E.TextColor3 = Color3.fromRGB(255, 255, 255)
 E.TextTransparency = 0
-E.TextSize = 12.000
+E.TextSize = 13.000
 E.TextXAlignment = Enum.TextXAlignment.Left    
 
  wait(T)
+
+Time.Parent = Frame
+Time.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Time.BackgroundTransparency = 1
+Time.Position = UDim2.new(0.8, 0, 0.5, 0)
+Time.Size = UDim2.new(0, 0, 0, 0)
+Time.Font = Enum.Font.GothamBold
+Time.Text = T
+Time.TextColor3 = Color3.fromRGB(255, 255, 255)
+Time.TextTransparency = 0
+Time.TextSize = 16.000
+Time.TextXAlignment = Enum.TextXAlignment.Left    
 
     Frame:Destroy()
 
