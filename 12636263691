@@ -1,7 +1,9 @@
 if not WASDcon then
+
 getgenv().WASDcon = {
     Draggable = false, 
 }
+
 end
 
 local ScreenGui = Instance.new("ScreenGui")
